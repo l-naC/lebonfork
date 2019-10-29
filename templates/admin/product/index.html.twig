@@ -8,6 +8,13 @@
 
 <div class="container">
     <h2>Gerer les biens</h2>
+
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {% endfor %}
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -20,7 +27,12 @@
                 <tr>
                     <td>{{product.title}}</td>
                     <td>
-                        <a href="{{path('admin.product.edit', {id: product.id})}}" class="btn-secondary">Edit</a>
+                        <a href="{{path('admin.product.edit', {id: product.id})}}" class="btn btn-secondary">Edit</a>
+                        <form action="{{path('admin.product.delete', {id: product.id})}}" method="post" style="display:inline-block">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
@@ -28,7 +40,7 @@
     </table>
 
     <div class="text-right">
-        <a href="{{path('admin.product.new')}}" class="btn-secondary">Créer un nouveau bien</a>
+        <a href="{{path('admin.product.new')}}" class="btn btn-secondary">Créer un nouveau bien</a>
     </div>
 </div>
 
