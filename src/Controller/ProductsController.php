@@ -17,12 +17,12 @@ class ProductsController extends AbstractController
      * @Route("/products", name="products.index")
      * @return Response
      */
-    
+
     public function index(ProductRepository $repository): Response
     {
-        $products = $this->repository->findAll();
+        $products = $repository->findAll();
         return $this->render('products/products.html.twig', [
-            'current_menu' => 'products'
+            'products' => $products, 'current_menu' => 'home'
         ]);
     }
 
@@ -43,6 +43,20 @@ class ProductsController extends AbstractController
         return $this->render('products/show.html.twig', [
             'product' => $product,
             'current_menu' => 'products'
+        ]);
+    }
+
+    /**
+     * @param ProductRepository $repository
+     * @return Response
+     * @Route("/products/order", name="products.order")
+     */
+
+    public function order(ProductRepository $repository): Response
+    {
+        $products = $repository->findOrder();
+        return $this->render('products/order.html.twig', [
+            'products' => $products, 'current_menu' => 'home'
         ]);
     }
 }

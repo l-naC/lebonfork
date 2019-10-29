@@ -92,6 +92,8 @@ class AdminProductController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Produit supprimé avec succès');
         }
-        return $this->redirectToRoute('admin.product.index');
+        return $this->redirectToRoute('admin.product.index',  [
+            'current_menu' => 'admin'
+        ]);
     }
 }

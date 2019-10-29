@@ -12,6 +12,10 @@ security:
         main:
             anonymous: true
 
+            logout: 
+                path: /logout
+                target: /
+
             form_login: 
                 check_path: login
 
